@@ -142,14 +142,14 @@ public final class signlink
 	
 	public static String findcachedir() {
 		if (webclient) {
-		boolean bool = new File(System.getProperty("user.home") + "/tworzoV3/").exists();
+		boolean bool = new File(System.getProperty("user.home") + "/WarlordsofHellCache/").exists();
 		if (bool) {
-			return System.getProperty("user.home") + "/tworzoV3/";
+			return System.getProperty("user.home") + "/WarlordsofHellCache/";
 		}
-		File localFile = new File(System.getProperty("user.home") + "/tworzoV3/");
+		File localFile = new File(System.getProperty("user.home") + "/WarlordsofHellCache/");
 		localFile.mkdir();
 		System.out.println("Directory doesnt exist, making directory");
-		return System.getProperty("user.home") + "/tworzoV3/";
+		return System.getProperty("user.home") + "/WarlordsofHellCache/";
     }
     if (!webclient) {
 		return "./tworzoV2/";

@@ -14,8 +14,8 @@ final class MouseDetection
 			{
 				if(coordsIndex < 500)
 				{
-					coordsX[coordsIndex] = ClientInstance.mouseX;
-					coordsY[coordsIndex] = ClientInstance.mouseY;
+					coordsX[coordsIndex] = clientInstance.mouseX;
+					coordsY[coordsIndex] = clientInstance.mouseY;
 					coordsIndex++;
 				}
 			}
@@ -27,16 +27,16 @@ final class MouseDetection
 		}
 	}
 
-	public MouseDetection(client Client1)
+	public MouseDetection(client client1)
 	{
 		syncObject = new Object();
 		coordsY = new int[500];
 		running = true;
 		coordsX = new int[500];
-		ClientInstance = Client1;
+		clientInstance = client1;
 	}
 
-	private client ClientInstance;
+	private client clientInstance;
 	public final Object syncObject;
 	public final int[] coordsY;
 	public boolean running;

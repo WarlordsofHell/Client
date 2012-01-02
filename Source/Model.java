@@ -395,6 +395,10 @@ public class Model extends Animable {
 			readOldModel(modelId);
 		if (newmodel[modelId]) {
 			scale2(4);// 2 is too big -- 3 is almost right
+		if(anIntArray1638 != null) {
+			for(int j = 0; j < anIntArray1638.length; j++)
+                    	anIntArray1638[j] = 10;
+			}
 		}
 	}
 
@@ -788,7 +792,7 @@ public class Model extends Animable {
 		anIntArray1633 = facePoint3;
 	}
 
-	public void readOldModel(int i) {
+	private void readOldModel(int i) {
 		int j = -870;
 		anInt1614 = 9;
 		aBoolean1615 = false;
@@ -932,6 +936,7 @@ public class Model extends Animable {
 	}
 
 	public static void method460(byte abyte0[], int j) {
+	try {
 		if (abyte0 == null) {
 			Class21 class21 = aClass21Array1661[j] = new Class21();
 			class21.anInt369 = 0;
@@ -939,9 +944,6 @@ public class Model extends Animable {
 			class21.anInt371 = 0;
 			return;
 		}
-		/*byte[] Byte0 = FileOperations.ReadFile(signlink.findcachedir() + "317Models/" + j + ".dat");
-			FileOperations.WriteFile(signlink.findcachedir() + "Raw/" + j + ".dat",Byte0);
-			System.out.println("Model ID: " + j + " Dumped");*/
 		Stream stream = new Stream(abyte0);
 		stream.currentOffset = abyte0.length - 18;
 		Class21 class21_1 = aClass21Array1661[j] = new Class21();
@@ -1000,6 +1002,8 @@ public class Model extends Animable {
 		l2 += i2;
 		class21_1.anInt375 = l2;
 		l2 += j2;
+		} catch (Exception _ex) {
+		}
 	}
 
 	public static boolean newmodel[];
@@ -1040,7 +1044,7 @@ public class Model extends Animable {
 		}
 	}
 
-	public Model(boolean flag) {
+	private Model(boolean flag) {
 		anInt1614 = 9;
 		aBoolean1615 = false;
 		anInt1616 = 360;
@@ -1471,7 +1475,7 @@ public class Model extends Animable {
 		anIntArray1645 = model.anIntArray1645;
 	}
 
-	public final int method465(Model model, int i) {
+	private final int method465(Model model, int i) {
 		int j = -1;
 		int k = model.anIntArray1627[i];
 		int l = model.anIntArray1628[i];
@@ -1700,7 +1704,7 @@ public class Model extends Animable {
 
 	}
 
-	public void method472(int i, int ai[], int j, int k, int l) {
+	private void method472(int i, int ai[], int j, int k, int l) {
 
 		int i1 = ai.length;
 		if (i == 0) {
@@ -1904,9 +1908,9 @@ public class Model extends Animable {
 			if (anIntArray1640 != null && anIntArray1639 != null)
 				if (anIntArray1640[i2] == 65535 //Most triangles
 				|| anIntArray1640[i2] == 0  //Black Triangles 633 Models
-				|| anIntArray1640[i2] == 16705	//Nezzy Green Triangles//GWD White Triangles
+				|| anIntArray1640[i2] == 16705 //Nezzy Green Triangles//GWD White Triangles
 				)
-				anIntArray1639[i2] = 255;
+					anIntArray1639[i2] = 255;
 			int j2 = anIntArray1631[i2];
 			int l2 = anIntArray1632[i2];
 			int i3 = anIntArray1633[i2];
@@ -2227,7 +2231,7 @@ public class Model extends Animable {
 				}
 	}
 
-	public final void method483(boolean flag, boolean flag1, int i) {
+	private final void method483(boolean flag, boolean flag1, int i) {
 		for (int j = 0; j < anInt1652; j++)
 			anIntArray1671[j] = 0;
 
@@ -2397,7 +2401,7 @@ public class Model extends Animable {
 		}
 	}
 
-	public final void method484(int i) {
+	private final void method484(int i) {
 		if (aBooleanArray1664[i]) {
 			method485(i);
 			return;
@@ -2457,7 +2461,7 @@ public class Model extends Animable {
 		}
 	}
 
-	public final void method485(int i) {
+	private final void method485(int i) {
 		if (anIntArray1640 != null)
 			if (anIntArray1640[i] == 65535)
 				return;
@@ -2692,7 +2696,7 @@ public class Model extends Animable {
 		}
 	}
 
-	public final boolean method486(int i, int j, int k, int l, int i1, int j1,
+	private final boolean method486(int i, int j, int k, int l, int i1, int j1,
 			int k1, int l1) {
 		if (j < k && j < l && j < i1)
 			return false;
@@ -2703,18 +2707,18 @@ public class Model extends Animable {
 		return i <= j1 || i <= k1 || i <= l1;
 	}
 
-	public int anInt1614;
-	public boolean aBoolean1615;
-	public int anInt1616;
-	public int anInt1617;
-	public boolean aBoolean1618;
-	public static int anInt1619 = -192;
+	private int anInt1614;
+	private boolean aBoolean1615;
+	private int anInt1616;
+	private int anInt1617;
+	private boolean aBoolean1618;
+	private static int anInt1619 = -192;
 	public static int anInt1620;
 	public static Model aModel_1621 = new Model(true);
-	public static int anIntArray1622[] = new int[2000];
-	public static int anIntArray1623[] = new int[2000];
-	public static int anIntArray1624[] = new int[2000];
-	public static int anIntArray1625[] = new int[2000];
+	private static int anIntArray1622[] = new int[2000];
+	private static int anIntArray1623[] = new int[2000];
+	private static int anIntArray1624[] = new int[2000];
+	private static int anIntArray1625[] = new int[2000];
 	public int anInt1626;
 	public int anIntArray1627[];
 	public int anIntArray1628[];

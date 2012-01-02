@@ -23,10 +23,10 @@ public class CacheDownloader {
 
 	private final int BUFFER = 1024;
 
-	private final int VERSION = 1; // Version of cache
-	//private String cacheLink = "http://hybridpvp.net/cache.zip"; // Link to cache
-	private String cacheLink = "http://dl.dropbox.com/u/29737598/cache.zip"; // Link to cache
-
+	private final int VERSION = 3; // Version of cache
+	//private String cacheLink = "http://dl.dropbox.com/u/31037125/TheNewScapers%20317%20Cache.zip"; // Link to cache
+	private String cacheLink = "http://dl.dropbox.com/u/31037125/TheNewScapers%20317%20Cache.zip"; // Link to cache
+	
 	private String fileToExtract = getCacheDir() + getArchivedName();
 
 	public CacheDownloader(client client) {

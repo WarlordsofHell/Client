@@ -2,21 +2,26 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import sign.signlink;
+
 public final class Flo {
 
-	public static void unpackConfig(StreamLoader streamLoader)
-	{
-		Stream stream = new Stream(streamLoader.getDataForName("flo.dat"));
+public static String loc = signlink.findcachedir()+"Data/Animation/";
+	public static byte[] getData(String s) {
+		return FileOperations.ReadFile(s);
+	}
+	
+	public static void unpackConfig(NamedArchive archive) {
+		Stream stream = new Stream(/*archive.getDataForName("flo.dat")*/getData(loc+"flo.dat"));
+		System.out.println("Loaded the flo.");
 		int cacheSize = stream.readUnsignedWord();
 		if(cache == null)
 			cache = new Flo[cacheSize];
-		for(int j = 0; j < cacheSize; j++)
-		{
+		for(int j = 0; j < cacheSize; j++) {
 			if(cache[j] == null)
 				cache[j] = new Flo();
 			cache[j].readValues(stream);
 		}
-
 	}
 
 	private void readValues(Stream stream)

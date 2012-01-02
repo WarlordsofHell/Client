@@ -4,12 +4,12 @@
 
 final class Censor {
 
-	public static void loadConfig(StreamLoader streamLoader)
+	public static void loadConfig(NamedArchive archive)
 	{
-		Stream stream = new Stream(streamLoader.getDataForName("fragmentsenc.txt"));
-		Stream stream_1 = new Stream(streamLoader.getDataForName("badenc.txt"));
-		Stream stream_2 = new Stream(streamLoader.getDataForName("domainenc.txt"));
-		Stream stream_3 = new Stream(streamLoader.getDataForName("tldlist.txt"));
+		Stream stream = new Stream(archive.getDataForName("fragmentsenc.txt"));
+		Stream stream_1 = new Stream(archive.getDataForName("badenc.txt"));
+		Stream stream_2 = new Stream(archive.getDataForName("domainenc.txt"));
+		Stream stream_3 = new Stream(archive.getDataForName("tldlist.txt"));
 		readValues(stream, stream_1, stream_2, stream_3);
 	}
 

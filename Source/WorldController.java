@@ -537,7 +537,7 @@ final class WorldController {
 		for(int l = 0; l < class30_sub3.anInt1317; l++)
 		{
 			Object5 class28 = class30_sub3.obj5Array[l];
-			if(class28.anInt523 == j && class28.anInt525 == k)
+			if((class28.uid >> 29 & 3) == 2 && class28.anInt523 == j && class28.anInt525 == k)
 				return class28.uid;
 		}
 
@@ -2028,7 +2028,7 @@ label0:
 			return method324(i1, i2, j1);
 		} else
 		{
-			System.out.println("Warning unsupported wall type");
+			System.out.println("Warning unsupported wall interfaceType");
 			return true;
 		}
 	}

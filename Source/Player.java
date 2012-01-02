@@ -3,12 +3,6 @@
 // Decompiler options: packimports(3) 
 
 public final class Player extends Entity {
-
-	public int frontLight = 68;
-	public int backLight = 820;
-	public int rightLight = 0;
-	public int middleLight = -1; // Cannot be 0
-	public int leftLight = 0;
 	
 	public Model getRotatedModel() {
 		if(!visible)
@@ -33,7 +27,7 @@ public final class Player extends Entity {
 				model_3.anIntArrayArray1658 = null;
 				model_3.anIntArrayArray1657 = null;
 				if(spotAnim.anInt410 != 128 || spotAnim.anInt411 != 128)
-					model_3.method479(95 + spotAnim.anInt413, 9282 + spotAnim.anInt414, -30, -50, -30, true);
+					model_3.method478(spotAnim.anInt410, spotAnim.anInt410, spotAnim.anInt411);
 				model_3.method479(64 + spotAnim.anInt413, 850 + spotAnim.anInt414, -30, -50, -30, true);
 				Model aclass30_sub2_sub4_sub6_1s[] = {
 						model, model_3
@@ -222,7 +216,7 @@ public final class Player extends Entity {
 					k2 = k1;
 				if(j1 >= 0 && i2 == 5)
 					k2 = j1;
-				if(k2 >= 256 && k2 < 512 && !IDK.cache[k2 - 256].method537())
+				if(k2 >= 256 && k2 < 512 && !IdentityKit.cache[k2 - 256].method537())
 					flag = true;
 				if(k2 >= 512 && !ItemDef.forID(k2 - 512).method195(anInt1702))
 					flag = true;
@@ -249,7 +243,7 @@ public final class Player extends Entity {
 					i3 = j1;
 				if(i3 >= 256 && i3 < 512)
 				{
-					Model model_3 = IDK.cache[i3 - 256].method538();
+					Model model_3 = IdentityKit.cache[i3 - 256].method538();
 					if(model_3 != null)
 						aclass30_sub2_sub4_sub6s[j2++] = model_3;
 				}
@@ -306,7 +300,7 @@ public final class Player extends Entity {
 		for(int i = 0; i < 12; i++)
 		{
 			int j = equipment[i];
-			if(j >= 256 && j < 512 && !IDK.cache[j - 256].method539())
+			if(j >= 256 && j < 512 && !IdentityKit.cache[j - 256].method539())
 				flag = true;
 			if(j >= 512 && !ItemDef.forID(j - 512).method192(anInt1702))
 				flag = true;
@@ -321,7 +315,7 @@ public final class Player extends Entity {
 			int i1 = equipment[l];
 			if(i1 >= 256 && i1 < 512)
 			{
-				Model model_1 = IDK.cache[i1 - 256].method540();
+				Model model_1 = IdentityKit.cache[i1 - 256].method540();
 				if(model_1 != null)
 					aclass30_sub2_sub4_sub6s[k++] = model_1;
 			}
@@ -367,6 +361,11 @@ public final class Player extends Entity {
 	public int headIcon;
 	public int skullIcon;
 	public int hintIcon;
+	public int frontLight = 68;
+	public int backLight = 820;
+	public int rightLight = 0;
+	public int middleLight = -1; // Cannot be 0
+	public int leftLight = 0;
 	public int anInt1707;
 	int anInt1708;
 	int anInt1709;

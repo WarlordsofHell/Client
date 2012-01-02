@@ -7,14 +7,14 @@ public final class Class36
 {
 	public static byte[] getData(int i1, int i2) {
 		if (i1 == 0)
-			return FileOperations.ReadFile(signlink.findcachedir() + "/nData/Frames/" + i2 + ".dat");
+			return FileOperations.ReadFile(signlink.findcachedir() + "/Data/Animation/Frame/" + i2 + ".dat");
 		else
-			return FileOperations.ReadFile(signlink.findcachedir() + "/nData/Skinlist/" + i2 + ".dat");
+			return FileOperations.ReadFile(signlink.findcachedir() + "/Data/Animation/Skin/" + i2 + ".dat");
 	}
 
     public static void method528(int i)
     {
-                animationlist = new Class36[40000][0];
+                animationlist = new Class36[4000][0];
     }
    public static void load(int file){
     try {
@@ -22,34 +22,23 @@ public final class Class36
         Stream stream1 = new Stream(DataBase.allSkinlist[file]);
 		Class18 class18 = new Class18(stream1, 0);
         int k1 = stream.readUnsignedWord();
-		animationlist[file] = new Class36[(int)(k1 * 3.0)];
+		animationlist[file] = new Class36[(int)(k1*1.5)];
 	    int ai[] = new int[500];
         int ai1[] = new int[500];
         int ai2[] = new int[500];
         int ai3[] = new int[500];
         for(int l1 = 0; l1 < k1; l1++)
-        /*System.out.println(file);
-            Stream stream = new Stream(getData(0, file));
-        Stream stream1 = new Stream(getData(1, file));
-                Class18 class18 = new Class18(stream1, 0);
-        int k1 = stream.readUnsignedWord();
-				animationlist[file] = new Class36[(int) (k1 * 3.0)];
-            int ai[] = new int[500];
-        int ai1[] = new int[500];
-        int ai2[] = new int[500];
-        int ai3[] = new int[500];
-        for(int l1 = 0; l1 < k1; l1++)*/
         {
             int i2 = stream.readUnsignedWord();
             Class36 class36 = animationlist[file][i2] = new Class36();
             class36.aClass18_637 = class18;
             int j2 = stream.readUnsignedByte();
             int l2 = 0;
-                        int k2 = -1;
+			int k2 = -1;
             for(int i3 = 0; i3 < j2; i3++)
             {
                 int j3 = stream.readUnsignedByte();
-       
+	
                 if(j3 > 0)
                 {
                     if(class18.anIntArray342[i3] != 0)
@@ -86,8 +75,8 @@ public final class Class36
                         ai3[l2] = c;
                     k2 = i3;
                     l2++;
-                    }
-        }
+            	}
+	}
 
             class36.anInt638 = l2;
             class36.anIntArray639 = new int[l2];
@@ -99,19 +88,12 @@ public final class Class36
                 class36.anIntArray639[k3] = ai[k3];
                 class36.anIntArray640[k3] = ai1[k3];
                 class36.anIntArray641[k3] = ai2[k3];
-//class36.runescapeshovesitsballsinpicklejuicelol;
-//} 
                 class36.anIntArray642[k3] = ai3[k3];
             }
 
         }
       }catch(Exception exception) { }
     }
-        public static void nullLoader()
-        {
-                animationlist = null;
-        }
-
     public static Class36 method531(int j)
     {
                 if(animationlist == null)
@@ -125,6 +107,10 @@ public final class Class36
 
         }
 
+public static void nullLoader()
+	{
+		animationlist = null;
+	}
 
    
         public static boolean method532(int i)

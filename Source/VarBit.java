@@ -4,9 +4,9 @@
 
 public final class VarBit {
 
-	public static void unpackConfig(StreamLoader streamLoader)
+	public static void unpackConfig(NamedArchive archive)
 	{
-		Stream stream = new Stream(streamLoader.getDataForName("varbit.dat"));
+		Stream stream = new Stream(archive.getDataForName("varbit.dat"));
 		int cacheSize = stream.readUnsignedWord();
 		if(cache == null)
 			cache = new VarBit[cacheSize];

@@ -1,13 +1,17 @@
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-import java.io.*;
-
+// Decompiler options: packimports(3)
+import sign.signlink;
 public final class SpotAnim {
 
-    public static void unpackConfig(StreamLoader streamLoader)
+	public static String loc = signlink.findcachedir()+"Data/Animation/";
+	public static byte[] getData(String s) {
+return FileOperations.ReadFile(s);
+}
+
+    public static void unpackConfig(NamedArchive archive)
     {
-        Stream stream = new Stream(streamLoader.getDataForName("spotanim.dat"));
+        Stream stream = new Stream(getData(loc+"spotanim.dat"));
         int length = stream.readUnsignedWord();
         if(cache == null)
             cache = new SpotAnim[length];
@@ -17,51 +21,34 @@ public final class SpotAnim {
                 cache[j] = new SpotAnim();
             cache[j].anInt404 = j;
             cache[j].readValues(stream);
+			if(j == 726){//Red skull
+				cache[j].anInt405 = 12411;
+				cache[j].anInt406 = 4417;
+				cache[j].aAnimation_407 =     Animation.anims[cache[j].anInt406];
+				}
         }
 
     }
-	
-	public void leechModel(int i2)
-	{
-	System.out.print("Attempting coping model "+i2+"...");
-	try {
 
-		DataOutputStream out = new DataOutputStream(new FileOutputStream("C:/Users/EricW/Desktop/webclient/models/"+i2+".dat"));
-		out.write(FileOperations.ReadFile("G:/Users/RCW/Desktop/rsps/601 project/Revision 1 -BK/cache/models/"+i2+".mdl"));
-			out.flush();
-			out.close();
-		} catch (Exception e) {}
-	System.out.println("COMPLETED");
-	}
-	private void readValues(Stream stream) {
-	do {
-		anInt406 = stream.readUnsignedWord();
-		anInt405 = stream.readUnsignedWord();
-		//leechModel(anInt405); <-- NEVER EVER RUN THIS DERP
-        if(Animation.anims != null && anInt406 != 65535 && anInt406 != -1)
-			aAnimation_407 = Animation.anims[anInt406];
-        	anInt410 = stream.readUnsignedByte();
-        	anInt411 = stream.readUnsignedByte();
-			int j = stream.readUnsignedWord();
-			if(j != 65535){
-			for (int k = 0; k < j; k++)
-				anIntArray409[k] = stream.readUnsignedWord();
-			for (int k = 0; k < j; k++)
-				anIntArray408[k] = stream.readUnsignedWord();
-			}
-			break;
-		}while(true);
-	}
-	private static int getCorrectColours(int i) {
-		String s = Integer.toHexString(i).toUpperCase();
-		String str; if (s.length() > 4) {
-			str = s.substring(4); 
-		} else {
-			str = s;
-		} 
-		int i2 = Integer.parseInt(str, 16); 
-		return i2; 
-	}
+    private void readValues(Stream stream) {
+        anInt406 = stream.readUnsignedWord();
+        anInt405 = stream.readUnsignedWord();
+                if (Animation.anims != null && anInt406 != 65535 && anInt406 != -1)
+                aAnimation_407 = Animation.anims[anInt406];
+                anInt410 = stream.readUnsignedByte();
+                anInt411 = stream.readUnsignedByte();
+           int j = stream.readUnsignedWord();
+                        if(j != 65535) {
+                        for (int k = 0; k < j; k++)
+                    anIntArray408[k] = stream.readUnsignedWord();
+                        for (int k = 0; k < j; k++)
+                    anIntArray409[k] = stream.readUnsignedWord();
+                }
+    }
+
+
+                //byte[] abyte0121 = FileOperations.ReadFile("./602/model/"+anInt405+".mdl");
+                //FileOperations.WriteFile("./gfx/"+anInt405+".dat", abyte0121);
     public Model getModel()
     {
         Model model = (Model) aMRUNodes_415.insertFromCache(anInt404);

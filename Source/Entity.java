@@ -128,8 +128,8 @@ public class Entity extends Animable {
 		anInt1512 = -1;
 		hitArray = new int[4];
 		hitMarkTypes = new int[4];
+		hitType = new int[4];
 		hitsLoopCycle = new int[4];
- 		hitType = new int[4];
 		anInt1517 = -1;
 		anInt1520 = -1;
 		anim = -1;
@@ -146,6 +146,7 @@ public class Entity extends Animable {
 
 	public final int[] smallX;
 	public final int[] smallY;
+	final int[] hitType;
 	public int interactingEntity;
 	int anInt1503;
 	int anInt1504;
@@ -159,7 +160,6 @@ public class Entity extends Animable {
 	final int[] hitArray;
 	final int[] hitMarkTypes;
 	final int[] hitsLoopCycle;
- 	final int[] hitType;
 	int anInt1517;
 	int anInt1518;
 	int anInt1519;

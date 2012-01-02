@@ -4,9 +4,9 @@
 
 public final class  Varp {
 
-    public static void unpackConfig(StreamLoader streamLoader)
+    public static void unpackConfig(NamedArchive archive)
     {
-        Stream stream = new Stream(streamLoader.getDataForName("varp.dat"));
+        Stream stream = new Stream(archive.getDataForName("varp.dat"));
         anInt702 = 0;
         int cacheSize = stream.readUnsignedWord();
         if(cache == null)

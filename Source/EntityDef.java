@@ -1,57 +1,209 @@
-import java.io.*;
+import java.io.PrintStream;
+import sign.signlink;
 
-public final class EntityDef {
+public final class EntityDef
+{
 
-	public static EntityDef forID(int i) {
-		for (int j = 0; j < 20; j++)
-			if (cache[j].type == (long) i)
-				return cache[j];
-		anInt56 = (anInt56 + 1) % 20;
-		EntityDef entityDef = cache[anInt56] = new EntityDef();
-		stream.currentOffset = streamIndices[i];
-		entityDef.type = i;
-		entityDef.readValues(stream);
-		if (entityDef.anIntArray76 == null) {
-			entityDef.anIntArray76 = new int [1];
-			entityDef.anIntArray70 = new int [1];
-			entityDef.anIntArray76[0] = 0;
-			entityDef.anIntArray70[0] = 1;
+    public static int NPCAMOUNT = 11599;
+    public int anInt55;
+    public static int anInt56;
+    public int anInt57;
+    public int anInt58;
+    public int anInt59;
+    public static Stream stream;
+    public int combatLevel;
+    public final int anInt64 = 1834;
+    public String name;
+    public String itemActions[];
+    public int anInt67;
+    public byte aByte68;
+    public int anIntArray70[];
+    public static int streamIndices[];
+    public int anIntArray73[];
+    public int anInt75;
+    public int anIntArray76[];
+    public int anInt77;
+    public long interfaceType;
+    public int anInt79;
+    public static EntityDef cache[];
+    public static client clientInstance;
+    public int anInt83;
+    public boolean aBoolean84;
+    public int anInt85;
+    public int anInt86;
+    public boolean aBoolean87;
+    public int childrenIDs[];
+    public byte description[];
+    public int anInt91;
+    public int anInt92;
+    public boolean aBoolean93;
+    public int anIntArray94[];
+    public static MRUNodes mruNodes = new MRUNodes(30);
+
+    public static EntityDef forID(int i)
+    {
+        for(int j = 0; j < 20; j++)
+        {
+            if(cache[j].interfaceType == (long)i)
+            {
+                return cache[j];
+            }
+        }
+
+        anInt56 = (anInt56 + 1) % 20;
+        EntityDef entitydef = cache[anInt56] = new EntityDef();
+        stream.currentOffset = streamIndices[i];
+        entitydef.interfaceType = i;
+        entitydef.readValues(stream);
+		if (i == 251)
+		{
+		entitydef.name = "Rare item store owner";
+		entitydef.description = "This man sells items for TheNewScapers Millionairs!".getBytes();
 		}
-		return entityDef;
-	}
-
-	public Model method160() {
-		if (childrenIDs != null) {
-			EntityDef entityDef = method161();
-			if (entityDef == null)
-				return null;
-			else
-				return entityDef.method160();
+		if (i == 527)
+		{
+		entitydef.name = "Dung store 2 owner";
+		entitydef.description = "This woman sells items from the minigame Dungeoneering.".getBytes();
 		}
-		if (anIntArray73 == null)
-			return null;
-		boolean flag1 = false;
-		for (int i = 0; i < anIntArray73.length; i++)
-			if (!Model.method463(anIntArray73[i]))
-				flag1 = true;
-		if (flag1)
-			return null;
-		Model aclass30_sub2_sub4_sub6s[] = new Model[anIntArray73.length];
-		for (int j = 0; j < anIntArray73.length; j++)
-			aclass30_sub2_sub4_sub6s[j] = Model.method462(anIntArray73[j]);
-		Model model;
-		if (aclass30_sub2_sub4_sub6s.length == 1)
-			model = aclass30_sub2_sub4_sub6s[0];
-		else
-			model = new Model(aclass30_sub2_sub4_sub6s.length, aclass30_sub2_sub4_sub6s);
-		if (anIntArray76 != null) {
-			for (int k = 0; k < anIntArray76.length; k++)
-				model.method476(anIntArray76[k], anIntArray70[k]);
+		if (i == 526)
+		{
+		entitydef.name = "Dung store 1 owner";
+		entitydef.description = "This man sells expensive items from the minigame Dungeoneering.".getBytes();
+		}	
+		if (i == 554)
+		{
+		entitydef.name = "Robe store owner";
+		entitydef.description = "This man sells coloured Hats, Robes, and Boots.".getBytes();
 		}
-		return model;
-	}
+		if (i == 683)
+		{
+		entitydef.name = "Range equipment store owner";
+		entitydef.description = "This man sells Ranging equipment.".getBytes();
+		}	
+		if (i == 541)
+		{
+		entitydef.name = "Pk'ing store owner";
+		entitydef.description = "This man sells Player-killing supplies.".getBytes();
+		}	
+		if (i == 549)
+		{
+		entitydef.name = "FOG store owner";
+		entitydef.description = "This man sells items from the minigame Fist of Guthix.".getBytes();
+		}		
+		if (i == 520)
+		{
+		entitydef.name = "General store owner";
+		entitydef.description = "This man sells general stuff..".getBytes();
+		}	
+		if (i == 522)
+		{
+		entitydef.name = "Item buying department owner";
+		entitydef.description = "This man will buy any item i'd like to sell!".getBytes();
+		}		
+		if (i == 1294)
+		{
+		entitydef.name = "Barrows store owner";
+		entitydef.description = "This man sells items from the minigame Barrows.".getBytes();
+		}
+		if (i == 5839)
+		{
+		entitydef.name = "Pk'ing gear 2 store owner";
+		entitydef.description = "This man sells Player-killing supplies.".getBytes();
+		}
+		if (i == 3381)
+		{
+		entitydef.name = "Pet shop owner";
+		entitydef.description = "This woman sells different pets.".getBytes();
+		}
+		if (i == 2538)
+		{
+		entitydef.name = "Pures shop owner";
+		entitydef.description = "This man sells items for people who own a 'Pure Account'.".getBytes();
+		}
+		if (i == 2830)
+		{
+		entitydef.name = "Pk'ing rewards shop 1 owner";
+		entitydef.description = "This man sells Player-killing reward items.".getBytes();
+		}
+		if (i == 5030)
+		{
+		entitydef.name = "Pk'ing rewards shop 2 owner";
+		entitydef.description = "This man sells Player-killing reward items.".getBytes();
+		}		
+		if (i == 2566)
+		{
+		entitydef.name = "Skillcape shop owner";
+		entitydef.description = "This man can sell me any type of Skillcape if i achieve a 99 skill.".getBytes();
+		}	
+		if (i == 1282)
+		{
+		entitydef.name = "Thieved items buying department store owner";
+		entitydef.description = "This man could buy any item i thieved from the stalls at home.".getBytes();
+		}		
+		if (i == 8275)
+		{
+		entitydef.name = "Slayer master Duradel";
+		entitydef.description = "This man can give me slayer tasks.".getBytes();
+		}
+        return entitydef;
+    }
 
-	public EntityDef method161() {
+    public Model method160()
+    {
+        if(childrenIDs != null)
+        {
+            EntityDef entitydef = method161();
+            if(entitydef == null)
+            {
+                return null;
+            } else
+            {
+                return entitydef.method160();
+            }
+        }
+        if(anIntArray73 == null)
+        {
+            return null;
+        }
+        boolean flag = false;
+        for(int i = 0; i < anIntArray73.length; i++)
+        {
+            if(!Model.method463(anIntArray73[i]))
+            {
+                flag = true;
+            }
+        }
+
+        if(flag)
+        {
+            return null;
+        }
+        Model amodel[] = new Model[anIntArray73.length];
+        for(int j = 0; j < anIntArray73.length; j++)
+        {
+            amodel[j] = Model.method462(anIntArray73[j]);
+        }
+
+        Model model;
+        if(amodel.length == 1)
+        {
+            model = amodel[0];
+        } else
+        {
+            model = new Model(amodel.length, amodel);
+        }
+        if(anIntArray76 != null)
+        {
+            for(int k = 0; k < anIntArray76.length; k++)
+            {
+                model.method476(anIntArray76[k], anIntArray70[k]);
+            }
+
+        }
+        return model;
+    }
+
+    public EntityDef method161() {
 		try {
 			int j = -1;
 			if(anInt57 != -1)
@@ -75,228 +227,318 @@ public final class EntityDef {
 			return null;
 		}
 	}
-	
-	public static int NPCAMOUNT = 11599;
-	
-	public static void unpackConfig(StreamLoader streamLoader) {
-		stream = new Stream(streamLoader.getDataForName("npc.dat"));
-		Stream stream2 = new Stream(streamLoader.getDataForName("npc.idx"));
-		int totalNPCs = stream2.readUnsignedWord();
-		System.out.println("602 NPC Amount: " + totalNPCs);
-		streamIndices = new int[totalNPCs];
-		int i = 2;
-		for (int j = 0; j < totalNPCs; j++) {
-			streamIndices[j] = i;
-			i += stream2.readUnsignedWord();
-		}
-		cache = new EntityDef[20];
-		for (int k = 0; k < 20; k++)
-			cache[k] = new EntityDef();
-	}
 
-	public static void nullLoader() {
-		mruNodes = null;
-		streamIndices = null;
-		cache = null;
-		stream = null;
-	}
+    public static byte[] getData(String s)
+    {
+        return FileOperations.ReadFile(s);
+    }
 
-	public Model method164(int j, int k, int ai[]) {
-		if (childrenIDs != null) {
-			EntityDef entityDef = method161();
-			if (entityDef == null)
-				return null;
-			else
-				return entityDef.method164(j, k, ai);
-		}
-		Model model = (Model) mruNodes.insertFromCache(type);
-		if (model == null) {
-			boolean flag = false;
-			for (int i1 = 0; i1 < anIntArray94.length; i1++)
-				if (!Model.method463(anIntArray94[i1]))
-					flag = true;
+    public static void unpackConfig(NamedArchive namedarchive)
+    {
+        stream = new Stream(getData((new StringBuilder()).append(signlink.findcachedir()).append("npc.dat").toString()));
+        Stream bytebuffer = new Stream(getData((new StringBuilder()).append(signlink.findcachedir()).append("npc.idx").toString()));
+        int i = bytebuffer.readUnsignedWord();
+        System.out.println((new StringBuilder()).append("602 NPC Amount: ").append(i).toString());
+        streamIndices = new int[i];
+        int j = 2;
+        for(int k = 0; k < i; k++)
+        {
+            streamIndices[k] = j;
+            j += bytebuffer.readUnsignedWord();
+        }
 
-			if (flag)
-				return null;
-			Model aclass30_sub2_sub4_sub6s[] = new Model[anIntArray94.length];
-			for (int j1 = 0; j1 < anIntArray94.length; j1++)
-				aclass30_sub2_sub4_sub6s[j1] = Model.method462(anIntArray94[j1]);
-			if (aclass30_sub2_sub4_sub6s.length == 1)
-				model = aclass30_sub2_sub4_sub6s[0];
-			else
-				model = new Model(aclass30_sub2_sub4_sub6s.length, aclass30_sub2_sub4_sub6s);
-			if (anIntArray76 != null) {
-				for (int k1 = 0; k1 < anIntArray76.length; k1++)
-					model.method476(anIntArray76[k1], anIntArray70[k1]);
-			}
-			model.method469();
-			model.method479(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
-			mruNodes.removeFromCache(model, type);
-		}
-		Model model_1 = Model.aModel_1621;
-		model_1.method464(model, Class36.method532(k) & Class36.method532(j));
-		if (k != -1 && j != -1)
-			model_1.method471(ai, j, k);
-		else if (k != -1)
-			model_1.method470(k);
-		if (anInt91 != 128 || anInt86 != 128)
-			model_1.method478(anInt91, anInt91, anInt86);
-		model_1.method466();
-		model_1.anIntArrayArray1658 = null;
-		model_1.anIntArrayArray1657 = null;
-		if (aByte68 == 1)
-			model_1.aBoolean1659 = true;
-		return model_1;
-	}
+        cache = new EntityDef[20];
+        for(int l = 0; l < 20; l++)
+        {
+            cache[l] = new EntityDef();
+        }
 
-	public void readValues(Stream stream) {
-		do {
-			int i = stream.readUnsignedByte();
-			if (i == 0)
-				return;
-			if (i == 1) {
-				int j = stream.readUnsignedByte();
-				anIntArray94 = new int[j];
-				for (int j1 = 0; j1 < j; j1++)
-					anIntArray94[j1] = stream.readUnsignedWord();
-			} else if (i == 2)
-				name = stream.readString();
-			else if (i == 3)
-				description = stream.readBytes();
-			else if (i == 12)
-				aByte68 = stream.readSignedByte();
-			else if (i == 13)
-				standAnim = stream.readUnsignedWord();
-			else if (i == 14)
-				walkAnim = stream.readUnsignedWord();
-			else if (i == 17) {
-				walkAnim = stream.readUnsignedWord();
-				anInt58 = stream.readUnsignedWord();
-				anInt83 = stream.readUnsignedWord();
-				anInt55 = stream.readUnsignedWord();
-				if (walkAnim == 65535)
-					walkAnim = -1;
-				if (anInt58 == 65535)
-					anInt58 = -1;
-				if (anInt83 == 65535)
-					anInt83 = -1;
-				if (anInt55 == 65535)
-					anInt55 = -1;
-			} else if (i >= 30 && i < 40) {
-				if (actions == null)
-					actions = new String[5];
-				actions[i - 30] = stream.readString();
-				if (actions[i - 30].equalsIgnoreCase("hidden"))
-					actions[i - 30] = null;
-			} else if(i == 40) {
-				int k = stream.readUnsignedByte();
-				anIntArray70 = new int[k];
-				anIntArray76 = new int[k];
-				for(int k1 = 0; k1 < k; k1++) {
-					anIntArray76[k1] = stream.readUnsignedWord();
-					anIntArray70[k1] = stream.readUnsignedWord();
-				}
-			} else if (i == 60) {
-				int l = stream.readUnsignedByte();
-				anIntArray73 = new int[l];
-				for (int l1 = 0; l1 < l; l1++)
-					anIntArray73[l1] = stream.readUnsignedWord();
-			} else if (i == 90)
-				stream.readUnsignedWord();
-			else if (i == 91)
-				stream.readUnsignedWord();
-			else if (i == 92)
-				stream.readUnsignedWord();
-			else if (i == 93)
-				aBoolean87 = false;
-			else if (i == 95)
-				combatLevel = stream.readUnsignedWord();
-			else if (i == 97)
-				anInt91 = stream.readUnsignedWord();
-			else if (i == 98)
-				anInt86 = stream.readUnsignedWord();
-			else if (i == 99)
-				aBoolean93 = true;
-			else if (i == 100)
-				anInt85 = stream.readSignedByte();
-			else if (i == 101)
-				anInt92 = stream.readSignedByte() * 5;
-			else if (i == 102)
-				anInt75 = stream.readUnsignedWord();
-			else if (i == 103)
-				anInt79 = stream.readUnsignedWord();
-			else if (i == 106) {
-				anInt57 = stream.readUnsignedWord();
-				if (anInt57 == 65535)
-					anInt57 = -1;
-				anInt59 = stream.readUnsignedWord();
-				if (anInt59 == 65535)
-					anInt59 = -1;
-				int i1 = stream.readUnsignedByte();
-				childrenIDs = new int[i1 + 1];
-				for (int i2 = 0; i2 <= i1; i2++) {
-					childrenIDs[i2] = stream.readUnsignedWord();
-					if (childrenIDs[i2] == 65535)
-						childrenIDs[i2] = -1;
-				}
-			} else if (i == 107)
-				aBoolean84 = false;
-		} while (true);
-	}
+    }
 
-	public EntityDef() {
-		anInt55 = -1;
-		anInt57 = -1;
-		anInt58 = -1;
-		anInt59 = -1;
-		combatLevel = -1;
-		anInt64 = 1834;
-		walkAnim = -1;
-		aByte68 = 1;
-		anInt75 = -1;
-		standAnim = -1;
-		type = -1L;
-		anInt79 = 32;
-		anInt83 = -1;
-		aBoolean84 = true;
-		anInt86 = 128;
-		aBoolean87 = true;
-		anInt91 = 128;
-		aBoolean93 = false;
-	}
+    public static void nullLoader()
+    {
+        mruNodes = null;
+        streamIndices = null;
+        cache = null;
+        stream = null;
+    }
 
-	public int anInt55;
-	public static int anInt56;
-	public int anInt57;
-	public int anInt58;
-	public int anInt59;
-	public static Stream stream;
-	public int combatLevel;
-	public final int anInt64;
-	public String name;
-	public String actions[];
-	public int walkAnim;
-	public byte aByte68;
-	public int[] anIntArray70;
-	public static int[] streamIndices;
-	public int[] anIntArray73;
-	public int anInt75;
-	public int[] anIntArray76;
-	public int standAnim;
-	public long type;
-	public int anInt79;
-	public static EntityDef[] cache;
-	public static client clientInstance;
-	public int anInt83;
-	public boolean aBoolean84;
-	public int anInt85;
-	public int anInt86;
-	public boolean aBoolean87;
-	public int childrenIDs[];
-	public byte description[];
-	public int anInt91;
-	public int anInt92;
-	public boolean aBoolean93;
-	public int[] anIntArray94;
-	public static MRUNodes mruNodes = new MRUNodes(30);
+    public Model method164(int i, int j, int ai[])
+    {
+        if(childrenIDs != null)
+        {
+            EntityDef entitydef = method161();
+            if(entitydef == null)
+            {
+                return null;
+            } else
+            {
+                return entitydef.method164(i, j, ai);
+            }
+        }
+        Model model = (Model)mruNodes.insertFromCache(interfaceType);
+        if(model == null)
+        {
+            boolean flag = false;
+            for(int k = 0; k < anIntArray94.length; k++)
+            {
+                if(!Model.method463(anIntArray94[k]))
+                {
+                    flag = true;
+                }
+            }
+
+            if(flag)
+            {
+                return null;
+            }
+            Model amodel[] = new Model[anIntArray94.length];
+            for(int l = 0; l < anIntArray94.length; l++)
+            {
+                amodel[l] = Model.method462(anIntArray94[l]);
+            }
+
+            if(amodel.length == 1)
+            {
+                model = amodel[0];
+            } else
+            {
+                model = new Model(amodel.length, amodel);
+            }
+            if(anIntArray76 != null)
+            {
+                for(int i1 = 0; i1 < anIntArray76.length; i1++)
+                {
+                    model.method476(anIntArray76[i1], anIntArray70[i1]);
+                }
+
+            }
+            model.method469();
+            model.method479(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
+            mruNodes.removeFromCache(model, interfaceType);
+        }
+        Model model1 = Model.aModel_1621;
+        model1.method464(model, Class36.method532(j) & Class36.method532(i));
+        if(j != -1 && i != -1)
+        {
+            model1.method471(ai, i, j);
+        } else
+        if(j != -1)
+        {
+            model1.method470(j);
+        }
+        if(anInt91 != 128 || anInt86 != 128)
+        {
+            model1.method478(anInt91, anInt91, anInt86);
+        }
+        model1.method466();
+        model1.anIntArrayArray1658 = (int[][])null;
+        model1.anIntArrayArray1657 = (int[][])null;
+        if(aByte68 == 1)
+        {
+            model1.aBoolean1659 = true;
+        }
+        return model1;
+    }
+
+    public void readValues(Stream bytebuffer)
+    {
+        do
+        {
+            int i = bytebuffer.readUnsignedByte();
+            if(i == 0)
+            {
+                return;
+            }
+            if(i == 1)
+            {
+                int j = bytebuffer.readUnsignedByte();
+                anIntArray94 = new int[j];
+                int j1 = 0;
+                while(j1 < j) 
+                {
+                    anIntArray94[j1] = bytebuffer.readUnsignedWord();
+                    j1++;
+                }
+            } else
+            if(i == 2)
+            {
+                name = bytebuffer.readString();
+            } else
+            if(i == 3)
+            {
+                description = bytebuffer.readBytes();
+            } else
+            if(i == 12)
+            {
+                aByte68 = bytebuffer.readSignedByte();
+            } else
+            if(i == 13)
+            {
+                anInt77 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 14)
+            {
+                anInt67 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 17)
+            {
+                anInt67 = bytebuffer.readUnsignedWord();
+                anInt58 = bytebuffer.readUnsignedWord();
+                anInt83 = bytebuffer.readUnsignedWord();
+                anInt55 = bytebuffer.readUnsignedWord();
+                if(anInt67 == 65535)
+                {
+                    anInt67 = -1;
+                }
+                if(anInt58 == 65535)
+                {
+                    anInt58 = -1;
+                }
+                if(anInt83 == 65535)
+                {
+                    anInt83 = -1;
+                }
+                if(anInt55 == 65535)
+                {
+                    anInt55 = -1;
+                }
+            } else
+            if(i >= 30 && i < 40)
+            {
+                if(itemActions == null)
+                {
+                    itemActions = new String[5];
+                }
+                itemActions[i - 30] = bytebuffer.readString();
+                if(itemActions[i - 30].equalsIgnoreCase("hidden"))
+                {
+                    itemActions[i - 30] = null;
+                }
+            } else
+            if(i == 40)
+            {
+                int k = bytebuffer.readUnsignedByte();
+                anIntArray70 = new int[k];
+                anIntArray76 = new int[k];
+                int k1 = 0;
+                while(k1 < k) 
+                {
+                    anIntArray76[k1] = bytebuffer.readUnsignedWord();
+                    anIntArray70[k1] = bytebuffer.readUnsignedWord();
+                    k1++;
+                }
+            } else
+            if(i == 60)
+            {
+                int l = bytebuffer.readUnsignedByte();
+                anIntArray73 = new int[l];
+                int l1 = 0;
+                while(l1 < l) 
+                {
+                    anIntArray73[l1] = bytebuffer.readUnsignedWord();
+                    l1++;
+                }
+            } else
+            if(i == 90)
+            {
+                bytebuffer.readUnsignedWord();
+            } else
+            if(i == 91)
+            {
+                bytebuffer.readUnsignedWord();
+            } else
+            if(i == 92)
+            {
+                bytebuffer.readUnsignedWord();
+            } else
+            if(i == 93)
+            {
+                aBoolean87 = false;
+            } else
+            if(i == 95)
+            {
+                combatLevel = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 97)
+            {
+                anInt91 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 98)
+            {
+                anInt86 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 99)
+            {
+                aBoolean93 = true;
+            } else
+            if(i == 100)
+            {
+                anInt85 = bytebuffer.readSignedByte();
+            } else
+            if(i == 101)
+            {
+                anInt92 = bytebuffer.readSignedByte() * 5;
+            } else
+            if(i == 102)
+            {
+                anInt75 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 103)
+            {
+                anInt79 = bytebuffer.readUnsignedWord();
+            } else
+            if(i == 106)
+            {
+                anInt57 = bytebuffer.readUnsignedWord();
+                if(anInt57 == 65535)
+                {
+                    anInt57 = -1;
+                }
+                anInt59 = bytebuffer.readUnsignedWord();
+                if(anInt59 == 65535)
+                {
+                    anInt59 = -1;
+                }
+                int i1 = bytebuffer.readUnsignedByte();
+                childrenIDs = new int[i1 + 1];
+                int i2 = 0;
+                while(i2 <= i1) 
+                {
+                    childrenIDs[i2] = bytebuffer.readUnsignedWord();
+                    if(childrenIDs[i2] == 65535)
+                    {
+                        childrenIDs[i2] = -1;
+                    }
+                    i2++;
+                }
+            } else
+            if(i == 107)
+            {
+                aBoolean84 = false;
+            }
+        } while(true);
+    }
+
+    public EntityDef()
+    {
+        anInt55 = -1;
+        anInt57 = -1;
+        anInt58 = -1;
+        anInt59 = -1;
+        combatLevel = -1;
+        anInt67 = -1;
+        aByte68 = 1;
+        anInt75 = -1;
+        anInt77 = -1;
+        interfaceType = -1L;
+        anInt79 = 32;
+        anInt83 = -1;
+        aBoolean84 = true;
+        anInt86 = 128;
+        aBoolean87 = true;
+        anInt91 = 128;
+        aBoolean93 = false;
+    }
+
 }

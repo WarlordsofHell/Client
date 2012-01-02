@@ -11,7 +11,7 @@ public final class ISAACRandomGen {
 		System.arraycopy(seed, 0, results, 0, seed.length);
 		initializeKeySet();
 	}
-
+	
 	public int getNextKey()
 	{
 		if(count-- == 0)

@@ -6,16 +6,16 @@
 final class Skills
 {
 
-	public static final int skillsCount = 25;
+	public static final int skillsCount = 27;
 	public static final String[] skillNames = {
 		"attack", "defence", "strength", "hitpoints", "ranged", "prayer", "magic", "cooking", "woodcutting", "fletching", 
-		"fishing", "firemaking", "crafting", "smithing", "mining", "herblore", "agility", "thieving", "slayer", "farming", 
-		"runecraft", "construction", "hunter", "-unused-", "-unused-"
+        "fishing", "firemaking", "crafting", "smithing", "mining", "herblore", "agility", "thieving", "slayer", "farming", 
+        "runecraft", "summoning", "hunter", "-unused-", "-unused-"
 	};
 	public static final boolean[] skillEnabled = {
 		true, true, true, true, true, true, true, true, true, true, 
-		true, true, true, true, true, true, true, true, true, false, 
-		true, true, true, false, false
+        true, true, true, true, true, true, true, true, true, true, 
+        true, true, true, false, false
 	};
 
 }

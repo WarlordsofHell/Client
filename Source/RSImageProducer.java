@@ -35,10 +35,6 @@ final class RSImageProducer
 		method239();
 		g.drawImage(anImage320, k, i, this);
 	}
-	
-	public void blankImage() {
-		anImage320.flush();
-	}
 
 	public synchronized void addConsumer(ImageConsumer imageconsumer)
 	{

@@ -113,32 +113,34 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 		out.close();
 	}
 
-	public void start(StreamLoader streamLoader, client client1) {
-		byte[] abyte2 = streamLoader.getDataForName("map_index");
-		Stream stream2 = new Stream(abyte2);
-		int j1 = abyte2.length / 7;
-		mapIndices1 = new int[j1];
-		mapIndices2 = new int[j1];
-		mapIndices3 = new int[j1];
-		mapIndices4 = new int[j1];
-		for (int i2 = 0; i2 < j1; i2++) {
-			mapIndices1[i2] = stream2.readUnsignedWord();
-			mapIndices2[i2] = stream2.readUnsignedWord();
-			mapIndices3[i2] = stream2.readUnsignedWord();
-			mapIndices4[i2] = stream2.readUnsignedByte();
-		}
+    public void start(NamedArchive archive, client client1)
+    {
+        byte[] abyte2 = archive.getDataForName("map_index");
+        Stream stream2 = new Stream(abyte2);
+        int j1 = abyte2.length / 7;
+        mapIndices1 = new int[j1];
+        mapIndices2 = new int[j1];
+        mapIndices3 = new int[j1];
+        mapIndices4 = new int[j1];
+        for(int i2 = 0; i2 < j1; i2++)
+        {
+            mapIndices1[i2] = stream2.readUnsignedWord();
+            mapIndices2[i2] = stream2.readUnsignedWord();
+            mapIndices3[i2] = stream2.readUnsignedWord();
+            mapIndices4[i2] = stream2.readUnsignedByte();
+        }
 
-		abyte2 = streamLoader.getDataForName("midi_index");
-		stream2 = new Stream(abyte2);
-		j1 = abyte2.length;
-		anIntArray1348 = new int[j1];
-		for (int k2 = 0; k2 < j1; k2++)
-			anIntArray1348[k2] = stream2.readUnsignedByte();
+        abyte2 = archive.getDataForName("midi_index");
+        stream2 = new Stream(abyte2);
+        j1 = abyte2.length;
+        anIntArray1348 = new int[j1];
+        for(int k2 = 0; k2 < j1; k2++)
+            anIntArray1348[k2] = stream2.readUnsignedByte();
 
-		clientInstance = client1;
-		running = true;
-		clientInstance.startRunnable(this, 2);
-	}
+        clientInstance = client1;
+        running = true;
+        clientInstance.startRunnable(this, 2);
+    }
 
     public int getNodeCount()
     {
@@ -167,7 +169,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
  
     public int getModelCount()
     {
-	return 417612;
+	return 41761;
     }
 	
 	private void closeRequest(OnDemandData onDemandData)
@@ -296,7 +298,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
                 {
                     waiting = false;
                     checkReceived();
-                   // handleFailed();
+                    handleFailed();
                     if(uncompletedCount == 0 && j >= 5)
                         break;
                     method568();
@@ -414,8 +416,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
         if(onDemandData.buffer == null)
             return onDemandData;
         int i = 0;
-        try
-        {
+        try {
             GZIPInputStream gzipinputstream = new GZIPInputStream(new ByteArrayInputStream(onDemandData.buffer));
 			//writeFile(onDemandData.buffer, "./maps/" + ++i1 + ".dat");
             do
@@ -427,12 +428,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
                     break;
                 i += k;
             } while(true);
-        }
-        catch(IOException _ex)
-        {
-			_ex.printStackTrace();
-			return null;
-           // throw new RuntimeException("error unzipping");
+        } catch(IOException _ex) {
+            throw new RuntimeException("error unzipping");
         }
         onDemandData.buffer = new byte[i];
         System.arraycopy(gzipInputBuffer, 0, onDemandData.buffer, 0, i);
@@ -442,19 +439,14 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     public int method562(int i, int k, int l)
     {
         int i1 = (l << 8) + k;
-	int mapNigga2;
-	int mapNigga3;
         for(int j1 = 0; j1 < mapIndices1.length; j1++)
 	{
             if(mapIndices1[j1] == i1)
 	    {
-                if(i == 0) {
-		 	mapNigga2 = mapIndices2[j1] > 3535 ? -1 : mapIndices2[j1];
-				return mapNigga2;
-                 } else {
-		 	mapNigga3 = mapIndices3[j1] > 3535 ? -1 : mapIndices3[j1];
-				return mapNigga3;
-		}	
+                if(i == 0)
+                    return mapIndices2[j1];
+                else
+                    return mapIndices3[j1];
 	    }
 	}
         return -1;
@@ -483,6 +475,34 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
                 return true;
         return false;
     }
+
+    private void handleFailed()
+    {
+        uncompletedCount = 0;
+        completedCount = 0;
+        for(OnDemandData onDemandData = (OnDemandData) requested.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) requested.reverseGetNext())
+            if(onDemandData.incomplete)
+                uncompletedCount++;
+            else
+                completedCount++;
+
+       while(uncompletedCount < 10)
+        {
+		try {
+            OnDemandData onDemandData_1 = (OnDemandData)aClass19_1368.popHead();
+            if(onDemandData_1 == null)
+                break;
+            if(fileStatus[onDemandData_1.dataType][onDemandData_1.ID] != 0)
+                filesLoaded++;
+            fileStatus[onDemandData_1.dataType][onDemandData_1.ID] = 0;
+            requested.insertHead(onDemandData_1);
+            uncompletedCount++;
+            closeRequest(onDemandData_1);
+		} catch (Exception _ex) {}
+            waiting = true;
+        }
+    }
+
 
     public void method566()
     {
@@ -587,16 +607,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     {
         return anIntArray1348[i] == 1;
     }
-	
-	public int getVersionCount(int j) {
-		return versions[j].length;
-	}
-
-	public int getModelIndex(int i) {
-		return 41761;//return modelIndices[i] & 0xff;
-	}
-	
-	public final int[][] versions;
 
     public OnDemandFetcher()
     {
@@ -611,7 +621,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
         aClass19_1358 = new NodeList();
         gzipInputBuffer = new byte[0x71868];
         nodeSubList = new NodeSubList();
-		versions = new int[4][];
         crcs = new int[4][];
         aClass19_1368 = new NodeList();
         aClass19_1370 = new NodeList();

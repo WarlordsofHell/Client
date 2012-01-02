@@ -2,16 +2,11 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.File;
-
 final class StreamLoader {
 
 	public StreamLoader(byte abyte0[])
 	{
-		Stream stream = new Stream(abyte0);
+			   Stream stream = new Stream(abyte0);
 		int i = stream.read3Bytes();
 		int j = stream.read3Bytes();
 		if(j != i)
@@ -29,16 +24,16 @@ final class StreamLoader {
 		dataSize = stream.readUnsignedWord();
 		anIntArray728 = new int[dataSize];
 		anIntArray729 = new int[dataSize];
-		anIntArray730 = new int[dataSize];
-		anIntArray731 = new int[dataSize];
+		dialogueModels0 = new int[dataSize];
+		dialogueModels1 = new int[dataSize];
 		int k = stream.currentOffset + dataSize * 10;
 		for(int l = 0; l < dataSize; l++)
 		{
 			anIntArray728[l] = stream.readDWord();
 			anIntArray729[l] = stream.read3Bytes();
-			anIntArray730[l] = stream.read3Bytes();
-			anIntArray731[l] = k;
-			k += anIntArray730[l];
+			dialogueModels0[l] = stream.read3Bytes();
+			dialogueModels1[l] = k;
+			k += dialogueModels0[l];
 		}
 	}
 
@@ -57,53 +52,23 @@ final class StreamLoader {
 					abyte0 = new byte[anIntArray729[k]];
 				if(!aBoolean732)
 				{
-					Class13.method225(abyte0, anIntArray729[k], aByteArray726, anIntArray730[k], anIntArray731[k]);
+					Class13.method225(abyte0, anIntArray729[k], aByteArray726, dialogueModels0[k], dialogueModels1[k]);
 				} else
 				{
-					System.arraycopy(aByteArray726, anIntArray731[k], abyte0, 0, anIntArray729[k]);
+					System.arraycopy(aByteArray726, dialogueModels1[k], abyte0, 0, anIntArray729[k]);
+
 				}
 				return abyte0;
 			}
 
 		return null;
 	}
-	
-	public byte[] getBytesFromFile(File file) throws IOException {
-        InputStream is = new FileInputStream(file);
-    
-        // Get the size of the file
-        long length = file.length();
-    
-        if (length > Integer.MAX_VALUE) {
-            // File is too large
-        }
-    
-        // Create the byte array to hold the data
-        byte[] bytes = new byte[(int)length];
-    
-        // Read in the bytes
-        int offset = 0;
-        int numRead = 0;
-        while (offset < bytes.length
-               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-            offset += numRead;
-        }
-    
-        // Ensure all the bytes have been read in
-        if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
-        }
-    
-        // Close the input stream and return bytes
-        is.close();
-        return bytes;
-    }
-	
+
 	private final byte[] aByteArray726;
 	private final int dataSize;
 	private final int[] anIntArray728;
 	private final int[] anIntArray729;
-	private final int[] anIntArray730;
-	private final int[] anIntArray731;
+	private final int[] dialogueModels0;
+	private final int[] dialogueModels1;
 	private final boolean aBoolean732;
 }

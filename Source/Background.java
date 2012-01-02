@@ -4,12 +4,12 @@
 
 public final class Background extends DrawingArea {
 
-	public Background(StreamLoader streamLoader, String s, int i)
+	public Background(NamedArchive archive, String s, int i)
 	{
-		Stream stream = new Stream(streamLoader.getDataForName(s + ".dat"));
-		Stream stream_1 = new Stream(streamLoader.getDataForName("index.dat"));
+		Stream stream = new Stream(archive.getDataForName(s + ".dat"));
+		Stream stream_1 = new Stream(archive.getDataForName("index.dat"));
 		stream_1.currentOffset = stream.readUnsignedWord();
-		anInt1456 = stream_1.readUnsignedWord();
+ 		anInt1456 = stream_1.readUnsignedWord();
 		anInt1457 = stream_1.readUnsignedWord();
 		int j = stream_1.readUnsignedByte();
 		anIntArray1451 = new int[j];
@@ -48,7 +48,6 @@ public final class Background extends DrawingArea {
 
 		}
 	}
-	
 
 	public void method356()
 	{

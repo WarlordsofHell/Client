@@ -1,3 +1,7 @@
+/* DrawingArea - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
+
 public class rsDrawingArea extends DrawingArea{
 
     public static int height;

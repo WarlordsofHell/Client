@@ -85,73 +85,6 @@ public class DrawingArea extends NodeSub {
 			l3 += k3;
 		}
 	}
-	
-	public static void drawAlphaHorizontalLine2(int x, int y, int lineWidth,
-			int color, int alpha) {// drawAlphaHorizontalLine
-		if (y < topY || y >= bottomY)
-			return;
-		if (x < topX) {
-			lineWidth -= topX - x;
-			x = topX;
-		}
-		if (x + lineWidth > bottomX)
-			lineWidth = bottomX - x;
-		int i3 = x + y * width;
-		for (int j3 = 0; j3 < lineWidth; j3++) {
-			int alpha2 = (lineWidth-j3)/(lineWidth/alpha);
-			int j1 = 256 - alpha2;
-			int k1 = (color >> 16 & 0xff) * alpha2;
-			int l1 = (color >> 8 & 0xff) * alpha2;
-			int i2 = (color & 0xff) * alpha2;
-			int j2 = (pixels[i3] >> 16 & 0xff) * j1;
-			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
-			int l2 = (pixels[i3] & 0xff) * j1;
-			int k3 = ((k1 + j2 >> 8) << 16) + ((l1 + k2 >> 8) << 8)
-					+ (i2 + l2 >> 8);
-			pixels[i3++] = k3;
-		}
-	}
-	
-	public static void drawAlphaGradient2(int x, int y, int gradientWidth,
-			int gradientHeight, int startColor, int endColor, int alpha) {
-		int k1 = 0;
-		int l1 = 0x10000 / gradientHeight;
-		if (x < topX) {
-			gradientWidth -= topX - x;
-			x = topX;
-		}
-		if (y < topY) {
-			k1 -= (topY - y) * l1;
-			gradientHeight -= topY - y;
-			y = topY;
-		}
-		if (x + gradientWidth > bottomX)
-			gradientWidth = bottomX - x;
-		if (y + gradientHeight > bottomY)
-			gradientHeight = bottomY - y;
-		int i2 = width - gradientWidth;
-		int total_pixels = x + y * width;
-		for (int k2 = -gradientHeight; k2 < 0; k2++) {
-			int alpha2 = (gradientHeight+k2)*(gradientHeight/alpha);
-			int result_alpha = 256 - alpha2;
-			int gradient1 = 0x10000 - k1 >> 8;
-			int gradient2 = k1 >> 8;
-			int gradient_color = ((startColor & 0xff00ff) * gradient1
-					+ (endColor & 0xff00ff) * gradient2 & 0xff00ff00)
-					+ ((startColor & 0xff00) * gradient1 + (endColor & 0xff00)
-							* gradient2 & 0xff0000) >>> 8;
-			int color = ((gradient_color & 0xff00ff) * alpha >> 8 & 0xff00ff)
-					+ ((gradient_color & 0xff00) * alpha >> 8 & 0xff00);
-			for (int k3 = -gradientWidth; k3 < 0; k3++) {
-				int colored_pixel = pixels[total_pixels];
-				colored_pixel = ((colored_pixel & 0xff00ff) * result_alpha >> 8 & 0xff00ff)
-						+ ((colored_pixel & 0xff00) * result_alpha >> 8 & 0xff00);
-				pixels[total_pixels++] = color + colored_pixel;
-			}
-			total_pixels += i2;
-			k1 -= l1;
-		}
-	}
 	//int i, int y, int x, int color, int width
 	public static void drawPixels(int i, int j, int k, int l, int i1)
 	{
@@ -261,7 +194,7 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	public static void method342(int i, int j, int k, int l, int i1) {
+	private static void method342(int i, int j, int k, int l, int i1) {
 		if(j < topX || j >= bottomX)
 			return;
 		if(l < topY) {
@@ -284,6 +217,34 @@ public class DrawingArea extends NodeSub {
 			i3 += width;
 		}
 	}
+	
+    public static void method336(int i, int j, int k, int l, int i1)
+    {
+        if(k < topX)
+        {
+            i1 -= topX - k;
+            k = topX;
+        }
+        if(j < topY)
+        {
+            i -= topY - j;
+            j = topY;
+        }
+        if(k + i1 > bottomX)
+            i1 = bottomX - k;
+        if(j + i > bottomY)
+            i = bottomY - j;
+        int k1 = width - i1;
+        int l1 = k + j * width;
+        for(int i2 = -i; i2 < 0; i2++)
+        {
+            for(int j2 = -i1; j2 < 0; j2++)
+                pixels[l1++] = l;
+
+            l1 += k1;
+        }
+
+    }
 
 	DrawingArea() {}
 
